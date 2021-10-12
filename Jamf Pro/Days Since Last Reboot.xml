@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><extensionAttribute>
+<displayName>Days Since Last Reboot</displayName>
+<description>https://www.jamf.com/jamf-nation/discussions/25277/ea-for-uptime-check-in-days-minutes</description>
+<dataType>number</dataType>
+<scriptContentsMac>#!/usr/bin/python&#13;
+&#13;
+'''&#13;
+This will track last reboot time and flag systems that have rebooted on their own&#13;
+'''&#13;
+&#13;
+# import modules&#13;
+&#13;
+import subprocess&#13;
+import time&#13;
+&#13;
+# global varibles if any&#13;
+&#13;
+&#13;
+# start functions&#13;
+&#13;
+def get_last_reboot():&#13;
+    '''use system control binary to read reboot time from kernel&#13;
+    use sub process to grab that'''&#13;
+    cmd = ['sysctl', '-h', 'kern.boottime']&#13;
+    ps = subprocess.check_output(cmd) &#13;
+    output = ps.strip()&#13;
+    output_list = output.split()&#13;
+    epoch_reboot_date = output_list[4].replace(',','')&#13;
+    return epoch_reboot_date&#13;
+&#13;
+def diff_times(reboot_time):&#13;
+    '''get current epoch time to get a difference of seconds a system has been running'''&#13;
+    current_epoch_time = int(time.time())&#13;
+    epoch_since_reboot = current_epoch_time - int(reboot_time)&#13;
+    return epoch_since_reboot&#13;
+&#13;
+def get_days_reboot(seconds):&#13;
+    '''return days since reboot'''&#13;
+    days = int(seconds) / 86400&#13;
+    return days&#13;
+&#13;
+def run():&#13;
+    reboot = get_last_reboot()&#13;
+    reboot_diff = diff_times(reboot)&#13;
+    reboot_days = get_days_reboot(reboot_diff)&#13;
+    print "&lt;result&gt;%s&lt;/result&gt;" % reboot_days&#13;
+&#13;
+run()</scriptContentsMac>
+</extensionAttribute>

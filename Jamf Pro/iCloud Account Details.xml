@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><extensionAttribute>
+<displayName>iCloud Account Details</displayName>
+<description>https://github.com/bp88/Jamf-Pro-Extension-Attributes/blob/master/iCloud%20Account%20Details.sh</description>
+<dataType>string</dataType>
+<scriptContentsMac>#!/bin/bash&#13;
+&#13;
+# Purpose: to grab iCloud account details such as the Display Name and the Account ID which at least gets you the Apple ID being used&#13;
+# Values will be the "Display Name, Apple ID address" or "Disabled"&#13;
+&#13;
+#Determine logged in user&#13;
+#loggedInUser=$(python -c 'from SystemConfiguration import SCDynamicStoreCopyConsoleUser; import sys; username = (SCDynamicStoreCopyConsoleUser(None, None, None) or [None])[0]; username = [username,""][username in [u"loginwindow", None, u""]]; sys.stdout.write(username + "\n");')&#13;
+#loggedInUser=$( echo "show State:/Users/ConsoleUser" | /usr/sbin/scutil | /usr/bin/awk '/Name :/ &amp;&amp; ! /loginwindow/ { print $3 }' )&#13;
+loggedInUser=$( echo "show State:/Users/ConsoleUser" | /usr/sbin/scutil | /usr/bin/awk '/kCGSessionLongUserNameKey :/ &amp;&amp; ! /loginwindow/ { print $3 }' )&#13;
+if [[ -e "/Users/$loggedInUser/Library/Preferences/MobileMeAccounts.plist" ]]; then&#13;
+	#Path to PlistBuddy&#13;
+	plistBud="/usr/libexec/PlistBuddy"&#13;
+&#13;
+	iCloudStatus=$("$plistBud" -c "print :Accounts:0:LoggedIn" /Users/$loggedInUser/Library/Preferences/MobileMeAccounts.plist 2&gt; /dev/null )&#13;
+&#13;
+	if [[ "$iCloudStatus" = "true" ]]; then&#13;
+		AccountID=$("$plistBud" -c "print :Accounts:0:AccountID" /Users/$loggedInUser/Library/Preferences/MobileMeAccounts.plist 2&gt; /dev/null)&#13;
+		DisplayName=$("$plistBud" -c "print :Accounts:0:DisplayName" /Users/$loggedInUser/Library/Preferences/MobileMeAccounts.plist 2&gt; /dev/null)&#13;
+		iCloudStatus="$DisplayName, $AccountID"&#13;
+	fi&#13;
+	if [[ "$iCloudStatus" = "false" ]] || [[ -z "$iCloudStatus" ]]; then&#13;
+		iCloudStatus="Disabled"&#13;
+	fi&#13;
+else&#13;
+	iCloudStatus="Disabled"&#13;
+fi&#13;
+&#13;
+/bin/echo "&lt;result&gt;$iCloudStatus&lt;/result&gt;"</scriptContentsMac>
+</extensionAttribute>
