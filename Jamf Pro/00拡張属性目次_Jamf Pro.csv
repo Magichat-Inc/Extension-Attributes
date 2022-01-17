@@ -1,0 +1,8 @@
+拡張属性 (Jamf Pro),,,,,
+,,,,,
+#,名前,ファイル名,注意,内容・備考,入力年月日
+1,Battery Cycle Count,Battery Cycle Count.xml,,"バッテリー充放電回数取得
+Jamf　Githubのものは古くて使えない",2021年9月15日
+2,Days Since Last Reboot,Days Since Last Reboot.xml,,再起動後経過日数取得,2021年9月15日
+3,iCloud Account Details,iCloud Account Details.xml,,iCloudにログインしているApple IDの確認,2021年9月15日
+4,EFIパスワードを確認,EFI password.xml,Intelの端末対象,Yes/Noという値,2021年12月3日
