@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><extensionAttribute>
+<displayName>Keyboads type</displayName>
+<description>キーボード種別  15:日本語　33:英語 (米国)</description>
+<dataType>number</dataType>
+<scriptContentsMac>#!/bin/bash&#13;
+kd=$(ioreg -c AppleHIDKeyboardEventDriverV2 | grep 'CountryCode' | sed -e 's/[^0-9]//g')&#13;
+case $kd in&#13;
+	33)&#13;
+		echo "&lt;result&gt;English&lt;/result&gt;"&#13;
+	;;&#13;
+	15)&#13;
+		echo "&lt;result&gt;Japanese&lt;/result&gt;"&#13;
+	;;&#13;
+	esac</scriptContentsMac>
+</extensionAttribute>
