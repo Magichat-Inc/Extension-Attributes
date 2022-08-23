@@ -19,8 +19,9 @@ if [[ -e "/Users/$loggedInUser/Library/Preferences/MobileMeAccounts.plist" ]]; t
     if [ -z "$iCloudAccount" ]; then
         iCloudStatus="Disabled"
     else
-       displayName=$(defaults read /Users/$loggedInUser/Library/Preferences/MobileMeAccounts.plist Accounts | grep DisplayName | cut -d '"' -f 2)
-       iCloudStatus="$displayName, $iCloudAccount"
+        plistBuddy="/usr/libexec/PlistBuddy"
+        displayName=$("$plistBuddy" -c "print :Accounts:0:DisplayName" /Users/$loggedInUser/Library/Preferences/MobileMeAccounts.plist 2> /dev/null)
+        iCloudStatus="$displayName, $iCloudAccount"
     fi
 fi
 
