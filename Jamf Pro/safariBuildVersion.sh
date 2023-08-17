@@ -17,3 +17,5 @@ if [ -d /Applications/Safari.app ] ; then
 else
     echo "<result>Not Installed</result>"
 fi
+
+exit 0
