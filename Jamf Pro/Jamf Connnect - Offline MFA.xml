@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><extensionAttribute>
+<displayName>Jamf Connnect - Offline MFA</displayName>
+<description/>
+<dataType>string</dataType>
+<scriptContentsMac>#!/bin/bash&#13;
+&#13;
+currentUser=$(ls -l /dev/console | awk '/ / { print $3 }')&#13;
+&#13;
+# ログインユーザのOffline MFAキーチェーンを確認。　YESなら有効/Noは無効(単純なローカルフォールバック状態)&#13;
+echo "&lt;result&gt;`sudo /Applications/Jamf\ Connect.app/Contents/MacOS/jamfconnect_tool offline-mfa -e $currentUser`&lt;/result&gt;"&#13;
+</scriptContentsMac>
+</extensionAttribute>
