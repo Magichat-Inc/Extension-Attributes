@@ -2,13 +2,13 @@
 
 ####################################################################################################
 # Script for getting the HDD usage in percentage      
-# HDDの使用率を得る            
+# HDDの使用率を取得します。         
 #                         
-# Author: Melinda Magyar (Magic Hat Inc.)             
-# 著者: マジャル メリンダ（株式会社マジックハット）
+# Author: Magic Hat Inc. (Melinda Magyar)           
+# 著者: 株式会社マジックハット (マジャル メリンダ)
 #
-# Last modified: 2022/07/08
-# 最終更新日: 2022年 7月 8日
+# Last modified: 2024/04/26
+# 最終更新日: 2024年 4月 26日
 ####################################################################################################
 
 used_percentage=$(df -H | grep -w "/System/Volumes/Data$"  | awk '{print $5}')

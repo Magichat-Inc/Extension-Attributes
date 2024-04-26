@@ -2,13 +2,13 @@
 
 ####################################################################################################
 # Script for getting the HDD usage in GB      
-# HDDの使用量を得る            
+# HDDの使用量を取得します。          
 #                         
-# Author: Melinda Magyar (Magic Hat Inc.)             
-# 著者: マジャル メリンダ（株式会社マジックハット）
+# Author: Magic Hat Inc. (Melinda Magyar)           
+# 著者: 株式会社マジックハット (マジャル メリンダ)
 #
-# Last modified: 2022/07/08
-# 最終更新日: 2022年 7月 8日
+# Last modified: 2024/04/26
+# 最終更新日: 2024年 4月 26日
 ####################################################################################################
 
 echo "<result>$(diskutil info / | awk '/Free Space|Available Space/ {print $4,$5}')</result>"

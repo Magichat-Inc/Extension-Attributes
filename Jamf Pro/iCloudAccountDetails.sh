@@ -1,14 +1,14 @@
-#!/bin/bash
+#!/bin/sh
 
 ####################################################################################################
 # Grabs iCloud account details such as the Display Name and the Account ID     
-# iCloud アカウントの詳細を取得する (表示名やアカウントID等)        
+# iCloud アカウントの詳細を取得します。 (表示名やアカウントID等)        
 #                         
-# Author: Melinda Magyar (Magic Hat Inc.)             
-# 著者: マジャル メリンダ（株式会社マジックハット）
+# Author: Magic Hat Inc. (Melinda Magyar)           
+# 著者: 株式会社マジックハット (マジャル メリンダ)
 #
-# Last modified: 2022/08/23
-# 最終更新日: 2022年 8月 23日
+# Last modified: 2024/04/26
+# 最終更新日: 2024年 4月 26日
 ####################################################################################################
 
 loggedInUser=$(stat -f%Su /dev/console)
