@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><extensionAttribute>
+<displayName>Jamf Connect - Privilege Elevation Counter</displayName>
+<description/>
+<dataType>string</dataType>
+<scriptContentsMac>#!/bin/bash&#13;
+&#13;
+#当月の取得&#13;
+log_month=`date +"%Y"-%m`&#13;
+#当月の昇格ログから最後の昇格カウントを取得する&#13;
+cnt=`log show --style compact --debug --info --predicate "subsystem == 'com.jamf.connect.daemon' AND message CONTAINS 'elevations this month:'" | grep "${log_month}" | awk 'END {print $NF}'`&#13;
+&#13;
+echo "&lt;result&gt;$cnt&lt;/result&gt;"&#13;
+</scriptContentsMac>
+</extensionAttribute>
