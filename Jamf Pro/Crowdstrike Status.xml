@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><extensionAttribute>
+<displayName>Crowdstrike Status</displayName>
+<description/>
+<dataType>string</dataType>
+<scriptContentsMac>#!/bin/sh&#13;
+&#13;
+## Path to the falconctl binary&#13;
+falconctl_path="/Applications/Falcon.app/Contents/Resources/falconctl"&#13;
+&#13;
+if [ -e "$falconctl_path" ]; then&#13;
+    cs_state=$("$falconctl_path" stats | awk '/State:/{print $NF}')&#13;
+    echo "&lt;result&gt;${cs_state}&lt;/result&gt;"&#13;
+else&#13;
+    echo "&lt;result&gt;Not Installed&lt;/result&gt;"&#13;
+fi</scriptContentsMac>
+</extensionAttribute>
